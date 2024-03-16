@@ -40,3 +40,36 @@ Node* get_max(Node* root) {
 	if (root->right == NULL) return root;
 	return get_max(root->right);
 }
+
+int get_length(int num) {
+    int length = 0;
+    if (num == 0) {
+        return 1;
+    }
+    while (num != 0) {
+        length++;
+        num = num / 10;
+    }
+
+    return length;
+}
+
+void print_tree(Node* root, int depth, int is_last_child) {
+	if (root == NULL) return;
+	for (int i = 0; i < depth - 1; i++) {
+		printf("%s", NODE_PREFIX_TOP_LEVEL);
+	}
+
+	if (depth) {
+		if (is_last_child) {
+			printf("%s", NODE_PREFIX_LAST);
+		} else {
+			printf("%s", NODE_PREFIX);
+		}
+	}
+
+	printf("(%d)\n", root->key);
+	print_tree(root->right, depth + 1, 0);
+	print_tree(root->left, depth + 1, 1);
+
+}

@@ -67,7 +67,7 @@ int main(void) {
 
 		} 
 		else if (!strcmp(command, "show")) {
-
+			print_tree(root, 0, 0);
 		} 
 		else if (!strcmp(command, "clear")) {
 
