@@ -72,20 +72,31 @@ Node* delete_node(Node* root, int key) {
 	} else if (key > root->key) {
 		root->right = delete_node(root->right, key);
 	} else {
+		// Нашли нужный узел
+
+		// (1) Если у удаляемого узла нет левого дочернего узла
 		if (root->left == NULL) {
 			Node* temp = root->right;
 			free(root);
+			// Возвращаем правый дочерний узел (может быть NULL)
 			return temp;
+		// (2) Если у удаляемого узла нет правого дочернего узла
 		} else if (root->right == NULL) {
 			Node* temp = root->left;
 			free(root);
+			// Возвращаем левый дочерний узел (не NULL)
 			return temp;
 		}
+
+		// (3) Если у удаляемого узла есть оба дочерних узла
+		// Находим узел с минимальным ключом в правом поддереве
 		Node* temp = root->right;
 		while (temp->left != NULL) {
 			temp = temp->left;
 		}
+		// Копируем значение найденного узла в удаляемый узел
 		root->key = temp->key;
+		 // Рекурсивно удаляем узел с минимальным ключом из правого поддерева
 		root->right = delete_node(root->right, temp->key);
 	}
 	return root;
