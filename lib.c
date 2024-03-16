@@ -3,8 +3,8 @@
 #include "lib.h"
 
 
-Node *create_node(int key) {
-	Node *new_node = (Node *)malloc(sizeof(Node));
+Node* create_node(int key) {
+	Node* new_node = (Node* )malloc(sizeof(Node));
 	if (new_node == NULL) {
 		printf("Memory allocation error for the new node\n");
 		exit(1);
@@ -29,17 +29,20 @@ Node* insert_node(Node* root, int key) {
 	return root;
 }
 
+
 Node* get_min(Node* root) {
 	if (root == NULL) return NULL;
 	if (root->left == NULL) return root;
 	return get_min(root->left);
 }
 
+
 Node* get_max(Node* root) {
 	if (root == NULL) return NULL;
 	if (root->right == NULL) return root;
 	return get_max(root->right);
 }
+
 
 int get_length(int num) {
     int length = 0;
@@ -53,6 +56,7 @@ int get_length(int num) {
 
     return length;
 }
+
 
 void print_tree(Node* root, int depth, int is_last_child) {
 	if (root == NULL) return;
@@ -72,4 +76,41 @@ void print_tree(Node* root, int depth, int is_last_child) {
 	print_tree(root->right, depth + 1, 0);
 	print_tree(root->left, depth + 1, 1);
 
+}
+
+
+Node* delete_node(Node* root, int key) {
+	if (root == NULL) return root;
+	if (key < root->key) {
+		root->left = delete_node(root->left, key);
+	} else if (key > root->key) {
+		root->right = delete_node(root->right, key);
+	} else {
+		if (root->left == NULL) {
+			Node* temp = root->right;
+			free(root);
+			return temp;
+		} else if (root->right == NULL) {
+			Node* temp = root->left;
+			free(root);
+			return temp;
+		}
+		Node* temp = root->right;
+		while (temp->left != NULL) {
+			temp = temp->left;
+		}
+		root->key = temp->key;
+		root->right = delete_node(root->right, temp->key);
+	}
+	return root;
+}
+
+
+void clear_tree(Node* root) {
+	print_tree(root, 0, 0);
+	if (root == NULL) return;
+	printf("\n");
+	clear_tree(root->left);
+	clear_tree(root->right);
+	free(root);
 }

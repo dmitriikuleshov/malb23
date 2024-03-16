@@ -2,12 +2,14 @@
 #include <stdio.h>
 #include "lib.h"
 
+
 void help_command() {
 	printf("ins <value>: add a new node to the tree\n");
 	printf("del <value>: remove a node from the tree\n");
 	printf("show: show tree structure in terminal\n");
 	printf("clear: clear the tree structure\n\n");
 }
+
 
 void invalid_command(char* command) {
 	printf("%s: command not found\n", command);
@@ -32,6 +34,7 @@ void get_max_command(Node * root) {
 	}
 }
 
+
 void get_min_command(Node * root) {
 	Node* min_node = get_min(root);
 	if (min_node == NULL) {
@@ -40,6 +43,15 @@ void get_min_command(Node * root) {
 		printf("%d - the smallest node of the tree\n\n", min_node->key);
 	}
 }
+
+
+void del_command(Node** root) {
+	int key;
+	scanf("%d", &key);
+	*root = delete_node(*root, key);
+	printf("OK\n\n");
+}
+
 
 int main(void) {
 	Node* root = NULL;
@@ -64,18 +76,18 @@ int main(void) {
 			printf("%d\n", root->key);
 		} 
 		else if (!strcmp(command, "del")) {
-
+			del_command(&root);
 		} 
 		else if (!strcmp(command, "show")) {
 			print_tree(root, 0, 0);
 		} 
 		else if (!strcmp(command, "clear")) {
-
+			printf("Tree clear visualization: ");
+			clear_tree(root);
 		} 
 		else {
 			invalid_command(command);
 		}
 	}
-
 	return 0;
 }
