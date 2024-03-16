@@ -28,3 +28,15 @@ Node* insert_node(Node* root, int key) {
 	}
 	return root;
 }
+
+Node* get_min(Node* root) {
+	if (root == NULL) return NULL;
+	if (root->left == NULL) return root;
+	return get_min(root->left);
+}
+
+Node* get_max(Node* root) {
+	if (root == NULL) return NULL;
+	if (root->right == NULL) return root;
+	return get_max(root->right);
+}

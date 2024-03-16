@@ -25,7 +25,7 @@ int main(void) {
 		if (!strcmp(command, "help")) {
 			help_command();
 		} else if (!strcmp(command, "ins")) {
-
+			
 		} else if (!strcmp(command, "del")) {
 
 		} else if (!strcmp(command, "show")) {
