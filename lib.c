@@ -44,20 +44,6 @@ Node* get_max(Node* root) {
 }
 
 
-int get_length(int num) {
-    int length = 0;
-    if (num == 0) {
-        return 1;
-    }
-    while (num != 0) {
-        length++;
-        num = num / 10;
-    }
-
-    return length;
-}
-
-
 void print_tree(Node* root, int depth, int is_last_child) {
 	if (root == NULL) return;
 	for (int i = 0; i < depth - 1; i++) {
@@ -113,4 +99,58 @@ void clear_tree(Node* root) {
 	clear_tree(root->left);
 	clear_tree(root->right);
 	free(root);
+}
+
+// BFS
+int is_width_increasing(Node* root) {
+	if (root == NULL) return 0;
+
+	int max_width = 0; // Максимальная ширина уровня
+	int prev_queue_size = 0;
+	int queue_size; // Размер очереди для узлов на текущем уровне
+
+	Node* current_node; 
+	// Очередь для обхода уровней дерева
+	Node ** queue = (Node**)malloc(sizeof(Node*) * 1000); 
+	// Индексы головы и хвоста очереди
+	int front = 0, rear = -1;
+
+
+	// Добавляем корневой узел в очередь
+    queue[++rear] = root;
+
+	while (1) {
+		// Размер очереди на текущем уровне
+		queue_size = rear - front + 1;
+		if (prev_queue_size >= queue_size && queue_size != 0) {
+			free(queue);
+			return 0;
+		}
+		prev_queue_size = queue_size;
+
+
+		if (queue_size == 0) {
+			// Очередь пуста, все уровни обработаны
+            break; 
+        }
+
+		// Обход всех узлов на текущем уровне
+		max_width = (queue_size > max_width) ? queue_size : max_width;
+		
+		while (queue_size > 0) {
+			// Извлекаем узел из очереди
+			current_node = queue[front++];
+			queue_size--;
+
+			if (current_node->left != NULL) {
+				queue[++rear] = current_node->left;
+			}
+			if (current_node->right != NULL) {
+				queue[++rear] = current_node->right;
+			}
+		}
+	}
+
+	free(queue);
+	return 1;
 }

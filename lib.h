@@ -22,5 +22,6 @@ Node* get_max(Node* root);
 void print_tree(Node* root, int depth, int is_last_child);
 Node* delete_node(Node* root, int key);
 void clear_tree(Node* root);
+int is_width_increasing(Node* root);
 
 #endif
