@@ -14,5 +14,6 @@ typedef struct node
 Node *create_node(int key);
 Node* insert_node(Node* root, int key);
 Node* get_min(Node* root);
+Node* get_max(Node* root);
 
 #endif
