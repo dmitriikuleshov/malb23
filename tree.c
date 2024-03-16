@@ -14,6 +14,7 @@ void invalid_command(char* command) {
 	printf("Type 'help' to learn about commands\n\n");
 }
 
+
 int main(void) {
 	Node* root = NULL;
 	char command[20];
