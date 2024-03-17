@@ -8,10 +8,11 @@ void help_command() {
 	printf("\tdel <value>  : remove a node from the tree\n");
 	printf("\tshow         : show tree structure in terminal\n");
 	printf("\tget_min      : show the smallest node of the tree\n");
-	printf("\tget_min      : show the largest node of the tree\n");
+	printf("\tget_max      : show the largest node of the tree\n");
 	printf("\tget_root     : show the root node of the tree\n");
 	printf("\tclear        : clear the tree structure\n");
 	printf("\tis_width_increasing (iwi): check if the tree is width increasing\n");
+	printf("\texit         : close the program");
 }
 
 
@@ -77,7 +78,7 @@ void clear_command(Node** root) {
 		printf("Tree clear visualization: \n\n");
 		clear_tree(*root);
 		*root = NULL;
-		printf("The tree is empty now");
+		printf("The tree is empty now\n");
 	}
 }
 
@@ -118,6 +119,9 @@ int main(void) {
 				printf("False: The tree width is not monotonously increasing\n");
 			}
 
+		} else if (!strcmp(command, "exit")) {
+			clear_command(&root);
+			exit(0);
 		}
 		else {
 			invalid_command(command);
